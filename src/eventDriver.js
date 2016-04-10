@@ -76,7 +76,7 @@ class EventDriver {
         for(let i = 0, l = listeners.length; i < l; ++i) {
             this._dispatch(listeners[i], arguments);
             if(listeners[i].once)
-                this.eventsMap[eventName].splice(i, 1);
+                listeners.splice(i, 1);
         }
 
         return this;
@@ -91,5 +91,4 @@ class EventDriver {
         return [['EventDriver']]
     }
 }
-
-export default new EventDriver();
+export default EventDriver;
