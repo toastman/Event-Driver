@@ -69,7 +69,7 @@ class EventDriver {
     trigger(eventName, ...args) {
         let listeners = this.eventsMap[eventName];
         if (!listeners || !listeners.length) {
-            console.warn(`${this.toString()}::The event ${eventName} was triggered, but handler didn\'t fired.`);
+            console.warn(`${this._toString()}::The event ${eventName} was triggered, but handler didn\'t fired.`);
             return this;
         }
 
@@ -87,7 +87,7 @@ class EventDriver {
         listener.handler.call(listener.caller, ..._args);
     }
 
-    toString() {
+    _toString() {
         return [['EventDriver']]
     }
 }
