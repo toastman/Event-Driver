@@ -91,4 +91,4 @@ class EventDriver {
         return [['EventDriver']]
     }
 }
-export default EventDriver;
+export default new EventDriver();
