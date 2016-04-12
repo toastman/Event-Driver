@@ -28,7 +28,7 @@ gulp.task('js', function () {
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('./build/'))
+        .pipe(gulp.dest('./dist/'))
         .pipe(browserSync.reload({stream: true}));
 });
 
