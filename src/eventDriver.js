@@ -10,7 +10,12 @@ class EventDriver {
         if (!array || !array.length)
             return false;
 
-        return array.find(predicate);
+        for(let i=0, l = array.length; i<l; ++i) {
+            let item = array[i];
+            if(predicate(item))
+                return item;
+        }
+
     }
 
     once(eventName, handler, context) {
@@ -20,7 +25,7 @@ class EventDriver {
     on(eventName, handler, context, once) {
         let _once = once && typeof once === 'boolean';
         let listeners = this.eventsMap[eventName],
-            isExistListener = this._find(listeners, function (listener) {
+            isExistListener = !!this._find(listeners, function (listener) {
                 return listener.handler === handler && listener.caller === context;
             });
 
@@ -66,15 +71,16 @@ class EventDriver {
         return this;
     }
 
-    trigger(eventName, ...args) {
+    trigger(eventName, data, context) {
         let listeners = this.eventsMap[eventName];
         if (!listeners || !listeners.length) {
             console.warn(`${this._toString()}::The event ${eventName} was triggered, but handler didn\'t fired.`);
             return this;
         }
-
         for(let i = 0, l = listeners.length; i < l; ++i) {
-            this._dispatch(listeners[i], arguments);
+            let listener = listeners[i];
+            if(listener.caller === context || !context)
+                this._dispatch(listener, eventName, data);
             if(listeners[i].once)
                 listeners.splice(i, 1);
         }
@@ -82,13 +88,13 @@ class EventDriver {
         return this;
     }
 
-    _dispatch(listener, args){
-        let _args = [].slice.call(args);
-        listener.handler.call(listener.caller, ..._args);
+    _dispatch(listener, eventName, data){
+        listener.handler.call(listener.caller, eventName, data);
     }
 
     _toString() {
         return [['EventDriver']]
     }
 }
-export default new EventDriver();
+window.EventDriver = new EventDriver();
+export default window.EventDriver;

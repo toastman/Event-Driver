@@ -10,8 +10,8 @@ var browserify = require('browserify'),
     browserSync = require('browser-sync');
 
 /* pathConfig*/
-var entryPoint = './src/eventDriver.js',
-    output = 'eventDriver.js',
+var entryPoint = './src/example.js',
+    output = 'example.js',
     browserDir = './',
     jsWatchPath = './src/**/*.js',
     htmlWatchPath = './*.html';
