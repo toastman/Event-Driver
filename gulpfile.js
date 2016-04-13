@@ -17,7 +17,7 @@ var entryPoint = './src/example.js',
     htmlWatchPath = './*.html';
 /**/
 
-gulp.task('js', function () {
+gulp.task('build', function () {
     return browserify(entryPoint, {debug: true, extensions: ['es6']})
         .transform("babelify", {
             presets: ["es2015"],
@@ -48,5 +48,5 @@ gulp.task('watch', function () {
     });
 });
 
-gulp.task('run', ['js', 'watch', 'browser-sync']);
-gulp.task('default', ['js']);
+gulp.task('run', ['build', 'watch', 'browser-sync']);
+gulp.task('default', ['build']);

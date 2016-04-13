@@ -96,5 +96,4 @@ class EventDriver {
         return [['EventDriver']]
     }
 }
-window.EventDriver = new EventDriver();
-export default window.EventDriver;
+export default new EventDriver();
