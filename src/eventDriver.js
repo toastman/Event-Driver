@@ -1,51 +1,37 @@
 /**
  * Created by Dmytro on 4/9/2016.
  */
-(function (root, factory) {
+((root, factory) =>{
     if (typeof define === 'function' && define.amd) {
         // AMD
         define([], factory);
     } else if (typeof exports === 'object') {
         // Node, CommonJS-like
-        module.exports = factory(require('jquery'));
+        module.exports = factory();
     } else {
         // Browser globals
         root.EventDriver = factory();
     }
-}(this, function ($) {
-    function EventDriver() {
-        this.eventsMap = {};
-    }
+})(window, () =>{
+    class EventDriver {
+        constructor() {
+            this.eventsMap = {};
+        }
 
-    EventDriver.prototype = {
-        constructor: EventDriver,
-
-        _find: function(array, predicate) {
-            if (!array || !array.length)
-                return false;
-
-            for(let i=0, l = array.length; i<l; ++i) {
-                let item = array[i];
-                if(predicate(item))
-                    return item;
-            }
-
-        },
-
-        once: function(eventName, handler, context) {
+        once(eventName, handler, context) {
             return this.on(...arguments, true);
-        },
+        }
 
-        on: function(eventName, handler, context, once) {
+        on(eventName, handler, context, once) {
             let listeners = this.eventsMap[eventName],
-                isExistListener = !!this._find(listeners, function (listener) {
+                isExistListener = !!listeners.find(listener => {
                     return listener.handler === handler && listener.caller === context;
                 });
 
             if (isExistListener)
                 return this;
 
-            let listener = {
+            const listener = {
                 handler: handler,
                 caller: context
             };
@@ -59,10 +45,10 @@
                 this.eventsMap[eventName] = [listener];
 
             return this;
-        },
+        }
 
         off(eventName, handler, context) {
-            let listeners = this.eventsMap[eventName];
+            const listeners = this.eventsMap[eventName];
 
             if (!listeners || !listeners.length)
                 return this;
@@ -82,14 +68,15 @@
             }
 
             return this;
-        },
+        }
 
         trigger(eventName, data, context) {
-            let listeners = this.eventsMap[eventName];
+            const listeners = this.eventsMap[eventName];
             if (!listeners || !listeners.length) {
                 console.warn(`${this._toString()}::The event ${eventName} was triggered, but handler didn\'t fired.`);
                 return this;
             }
+
             for(let i = 0, l = listeners.length; i < l; ++i) {
                 let listener = listeners[i];
                 if(listener.caller === context || !context){
@@ -101,17 +88,17 @@
             }
 
             return this;
-        },
+        }
 
         _dispatch(listener, data){
             listener.handler.call(listener.caller, listener, data);
-        },
+        }
 
         _toString() {
             return [['EventDriver']]
         }
 
-    };
+    }
 
     return EventDriver;
-}));
+});
