@@ -23,7 +23,7 @@
         }
 
         on(eventName, handler, context, once) {
-            let listeners = this.eventsMap[eventName],
+            const listeners = this.eventsMap[eventName],
                 isExistListener = !!listeners.find(listener => {
                     return listener.handler === handler && listener.caller === context;
                 });
