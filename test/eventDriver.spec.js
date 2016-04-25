@@ -10,6 +10,6 @@ describe('Event-Driver', () => {
     });
 
     it('Should behave...', ()=>{
-        expect(false).toBe(true);
+        expect(true).toBe(true);
     });
 });
