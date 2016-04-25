@@ -1,5 +1,5 @@
 {
-  "name": "event-driver",
+  "name": "Event-Driver",
   "version": "0.0.1",
   "description": "Javascript events manager",
   "main": "index.js",
