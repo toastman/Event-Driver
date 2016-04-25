@@ -6,17 +6,10 @@ var browserify = require('browserify'),
     sourcemaps = require('gulp-sourcemaps'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
-    browserSync = require('browser-sync');
-
-/* pathConfig*/
-var entryPoint = './src/eventDriver.js',
-    browserDir = './',
-    jsWatchPath = './src/**/*.js',
-    htmlWatchPath = './index.html';
-/**/
+    exec = require('gulp-exec');
 
 gulp.task('build', function () {
-    return browserify(entryPoint, {debug: true, extensions: ['es6']})
+    return browserify('./src/eventDriver.js', {debug: true, extensions: ['es6']})
         .transform("babelify", {presets: ["es2015"]})
         .bundle()
         .pipe(source('eventDriver.js'))
@@ -24,25 +17,20 @@ gulp.task('build', function () {
         .pipe(sourcemaps.init())
         .pipe(gulp.dest('./dist/'))
         .pipe(sourcemaps.write())
-        .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('browser-sync', function () {
-    const config = {
-        server: {baseDir: browserDir}
-    };
-
-    return browserSync(config);
-});
-
-gulp.task('watch', function () {
-    gulp.watch(jsWatchPath, ['build']);
-    gulp.watch(htmlWatchPath, function () {
-        return gulp.src('')
-            .pipe(browserSync.reload({stream: true}))
-    });
+gulp.task('test', function () {
+    return browserify('./test/eventDriver.spec.js', {debug: true, extensions: ['es6']})
+        .transform("babelify", {presets: ["es2015"]})
+        .bundle()
+        .pipe(source('eventDriver.spec.js'))
+        .pipe(buffer())
+        .pipe(sourcemaps.init())
+        .pipe(gulp.dest('./dist/'))
+        .pipe(sourcemaps.write())
+        .pipe(exec('npm test'));
 });
 
 gulp.task('default', ['build']);
 
-gulp.task('run', ['build', 'watch', 'browser-sync']);
+gulp.task('run', ['build', 'test']);

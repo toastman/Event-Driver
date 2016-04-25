@@ -23,6 +23,7 @@
     "browser-sync": "^2.12.3",
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
+    "gulp-exec": "^2.1.2",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "jasmine": "^2.4.1",
     "vinyl-buffer": "^1.0.0",
