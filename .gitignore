@@ -1,2 +1,5 @@
 /node_modules/
  .idea/
+ /dist/eventDriver.js.map
+ /dist/eventDriver.spec.js
+ /dist/eventDriver.spec.js.map
