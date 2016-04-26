@@ -4,7 +4,7 @@
   "description": "Javascript events manager",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "test": "./node_modules/.bin/karma start karma.conf.js",
     "build": "./node_modules/.bin/gulp build"
   },
   "keywords": [
@@ -26,7 +26,14 @@
     "gulp-exec": "^2.1.2",
     "gulp-sourcemaps": "^2.0.0-alpha",
     "jasmine": "^2.4.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8",
+    "karma-mocha-reporter": "^2.0.2",
+    "karma-phantomjs-launcher": "^1.0.0",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }

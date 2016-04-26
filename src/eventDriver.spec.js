@@ -9,7 +9,11 @@ describe('Event-Driver', () => {
         eventDriver = new EventDriver();
     });
 
-    it('Should behave...', ()=>{
+    it('Should success...', ()=>{
         expect(true).toBe(true);
     });
+
+    xit('Should fail', ()=>{
+        expect(false).toBe(true);
+    })
 });

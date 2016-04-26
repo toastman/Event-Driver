@@ -12,7 +12,8 @@
         // Browser globals
         root.EventDriver = factory();
     }
-})(this, () =>{
+})(window, () =>{
+    
     class EventDriver {
         constructor() {
             this.eventsMap = {};
