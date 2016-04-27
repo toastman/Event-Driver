@@ -38,7 +38,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'on',
             value: function on(eventName, handler, context, once) {
                 var listeners = this.eventsMap[eventName],
-                    isExistListener = !!listeners.find(function (listener) {
+                    isExistListener = !!listeners && listeners.find(function (listener) {
                     return listener.handler === handler && listener.caller === context;
                 });
 

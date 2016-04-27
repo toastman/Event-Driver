@@ -5,15 +5,40 @@ import EventDriver from '../src/eventDriver';
 
 describe('Event-Driver', () => {
     let eventDriver = null;
-    beforeEach(()=>{
+    beforeEach(() => {
         eventDriver = new EventDriver();
     });
 
-    it('Should success...', ()=>{
-        expect(true).toBe(true);
+    describe('One', function() {
+        beforeEach(() => {
+            eventDriver = new EventDriver();
+        });
+
+        it('Should add listener', function() {
+            var callback = function() { return true };
+
+            eventDriver.on('test', callback);
+
+            console.log(eventDriver.eventsMap['test'])
+
+            expect(eventDriver.eventsMap['test'][0].handler).toBe(callback)
+
+        });
     });
 
-    xit('Should fail', ()=>{
-        expect(false).toBe(true);
+    describe('Trigger', function() {
+        beforeEach(() => {
+            eventDriver = new EventDriver();
+        });
+
+        it('Should dispatch', function() {
+            eventDriver.on('test', function(){});
+
+            spyOn(eventDriver, '_dispatch').and.callThrough();
+
+            eventDriver.trigger('test');
+            
+            expect(eventDriver._dispatch).toHaveBeenCalled();
+        })
     })
 });

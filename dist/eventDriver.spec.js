@@ -38,7 +38,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'on',
             value: function on(eventName, handler, context, once) {
                 var listeners = this.eventsMap[eventName],
-                    isExistListener = !!listeners.find(function (listener) {
+                    isExistListener = !!listeners && listeners.find(function (listener) {
                     return listener.handler === handler && listener.caller === context;
                 });
 
@@ -131,12 +131,38 @@ describe('Event-Driver', function () {
         eventDriver = new _eventDriver2.default();
     });
 
-    it('Should success...', function () {
-        expect(true).toBe(true);
+    describe('One', function () {
+        beforeEach(function () {
+            eventDriver = new _eventDriver2.default();
+        });
+
+        it('Should add listener', function () {
+            var callback = function callback() {
+                return true;
+            };
+
+            eventDriver.on('test', callback);
+
+            console.log(eventDriver.eventsMap['test']);
+
+            expect(eventDriver.eventsMap['test'][0].handler).toBe(callback);
+        });
     });
 
-    xit('Should fail', function () {
-        expect(false).toBe(true);
+    describe('Trigger', function () {
+        beforeEach(function () {
+            eventDriver = new _eventDriver2.default();
+        });
+
+        it('Should dispatch', function () {
+            eventDriver.on('test', function () {});
+
+            spyOn(eventDriver, '_dispatch').and.callThrough();
+
+            eventDriver.trigger('test');
+
+            expect(eventDriver._dispatch).toHaveBeenCalled();
+        });
     });
 }); /**
      * Created by Dmytro on 4/10/2016.
