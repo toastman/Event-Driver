@@ -11,13 +11,7 @@ module.exports = function (config) {
 
         reporters: ['mocha'],
 
-        // browsers: ['PhantomJS'],//, 'Chrome', 'Chrome_without_security'],
-        browsers: ['Chrome'],
-        customLaunchers: {
-            Chrome_without_security: {
-                base: 'Chrome',
-                flags: ['--disable-web-security']
-            }
-        }
+        browsers: ['PhantomJS']
+        // browsers: ['Chrome']
     });
 };

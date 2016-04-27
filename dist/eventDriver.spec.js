@@ -143,8 +143,6 @@ describe('Event-Driver', function () {
 
             eventDriver.on('test', callback);
 
-            console.log(eventDriver.eventsMap['test']);
-
             expect(eventDriver.eventsMap['test'][0].handler).toBe(callback);
         });
     });
