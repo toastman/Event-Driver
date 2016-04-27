@@ -11,7 +11,10 @@ module.exports = function (config) {
 
         reporters: ['mocha'],
 
-        browsers: ['PhantomJS']
+        browsers: ['PhantomJS'],
         // browsers: ['Chrome']
+        
+        autoWatch: false,
+        singleRun: true
     });
 };
