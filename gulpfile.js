@@ -37,7 +37,7 @@ var browserify = require('browserify'),
 // gulp.task('run', ['build', 'test']);
 
 gulp.task('build', function(){
-    compile();
+    return compile();
 });
 gulp.task('watch', function () {
     return compile(true);
